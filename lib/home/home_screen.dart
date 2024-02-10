@@ -2,6 +2,7 @@ import 'package:app_to_do/home/settings/settings_tap.dart';
 import 'package:app_to_do/home/task_list/add_task_bottom_sheet.dart';
 import 'package:app_to_do/home/task_list/task_list_tap.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'Home_Screen';
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height * 0.20,
         title: Text(
-          'ToDo List',
+          AppLocalizations.of(context)!.app_title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
