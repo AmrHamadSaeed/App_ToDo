@@ -107,7 +107,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       onPressed: () {
                         addTask();
                       },
-                      child: Icon(Icons.add),
+                      child: Icon(Icons.check),
                     ),
                   ),
                 ],

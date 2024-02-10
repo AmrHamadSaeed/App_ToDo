@@ -23,24 +23,27 @@ class _HomeScreenState extends State<HomeScreen> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        notchMargin: 7,
-        child: BottomNavigationBar(
-          currentIndex: selectedIndex,
-          onTap: (index) {
-            selectedIndex = index;
-            setState(() {});
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              label: 'Task List',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(canvasColor: Colors.red),
+        child: BottomAppBar(
+          notchMargin: 7,
+          child: BottomNavigationBar(
+            currentIndex: selectedIndex,
+            onTap: (index) {
+              selectedIndex = index;
+              setState(() {});
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                label: 'Task List',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

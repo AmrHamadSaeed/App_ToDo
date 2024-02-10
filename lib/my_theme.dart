@@ -38,7 +38,7 @@ class MyTheme {
       unselectedItemColor: greyColor,
       backgroundColor: Colors.transparent,
       elevation: 0,
-    ),
+      ),
     bottomAppBarTheme: BottomAppBarTheme(
       shape: AutomaticNotchedShape(
         RoundedRectangleBorder(),
@@ -63,7 +63,7 @@ class MyTheme {
         side: BorderSide(color: MyTheme.greyDarkColor, width: 1),
       ),
     ),
-  );
+      listTileTheme: ListTileThemeData());
 
   /// Dark Theme
 
