@@ -1,0 +1,22 @@
+{
+"app_title" : "ToDo List",
+"task_list" : "Task List",
+"settings" : "Settings",
+"task" : "Task",
+"description" : "Description",
+"task_title" : "Enter Task Title",
+"description_title" : "Enter Task Description",
+"select_date" : "Select Date",
+"error_task_title" : "Please Enter Task Title",
+"error_task_description" : "Please Enter Task Description",
+"language" : "Language",
+"arabic" : "Arabic",
+"english" : "English",
+"mode" : "Mode",
+"light" : "Light",
+"night" : "Night"
+
+
+
+
+}

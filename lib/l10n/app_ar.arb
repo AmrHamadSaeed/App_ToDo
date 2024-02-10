@@ -1,0 +1,22 @@
+{
+"app_title" : "عمل قائمة",
+"task_list" : "قائمة المهام",
+"settings" : "الإعدادات",
+"task" : "المهام",
+"description" : "الوصف",
+"task_title" : "أدخل عنوان المهمة",
+"description_title" : "أدخل وصف المهمة",
+"select_date" : "حدد تاريخ",
+"error_task_title" : "الرجاء إدخال عنوان المهمة",
+"error_task_description" : "الرجاء إدخال وصف المهمة",
+"language" : "اللغة",
+"arabic" : "العربية",
+"english" : "الإنجليزية",
+"mode" : "الوضع",
+"light" : "اضاءة",
+"night" : "ليلي"
+
+
+
+
+}
