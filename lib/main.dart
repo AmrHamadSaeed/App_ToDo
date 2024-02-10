@@ -1,4 +1,5 @@
 import 'package:app_to_do/home/home_screen.dart';
+import 'package:app_to_do/my_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,8 +7,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,6 +15,8 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
       },
+      theme: MyTheme.lightTheme,
+      darkTheme: MyTheme.darkTheme,
     );
   }
 }
