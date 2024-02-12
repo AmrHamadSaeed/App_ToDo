@@ -1,4 +1,5 @@
 import 'package:app_to_do/home/settings/tap_language_bottom.dart';
+import 'package:app_to_do/home/settings/tap_theme_bottom.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,10 @@ class _SettingsTapState extends State<SettingsTap> {
         children: [
           Text(
             AppLocalizations.of(context)!.language,
-            style: Theme.of(context).textTheme.titleSmall,
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: Colors.green),
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
@@ -42,7 +46,12 @@ class _SettingsTapState extends State<SettingsTap> {
                       provider.languageApp == 'en'
                           ? AppLocalizations.of(context)!.english
                           : AppLocalizations.of(context)!.arabic,
-                      style: Theme.of(context).textTheme.titleSmall,
+                      style: provider.isDarkMode()
+                          ? Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Colors.green)
+                          : Theme.of(context).textTheme.titleSmall,
                     ),
                     Icon(Icons.keyboard_arrow_down_sharp),
                   ],
@@ -51,7 +60,7 @@ class _SettingsTapState extends State<SettingsTap> {
             ),
           ),
           Text(
-            'Mode',
+            AppLocalizations.of(context)!.mode,
             style: Theme.of(context).textTheme.titleSmall,
           ),
           Padding(
@@ -63,13 +72,22 @@ class _SettingsTapState extends State<SettingsTap> {
                 border: Border.all(color: MyTheme.primaryColor),
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  showThemeBottom();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Light',
-                      style: Theme.of(context).textTheme.titleSmall,
+                      provider.isDarkMode()
+                          ? AppLocalizations.of(context)!.night
+                          : AppLocalizations.of(context)!.light,
+                      style: provider.isDarkMode()
+                          ? Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Colors.green)
+                          : Theme.of(context).textTheme.titleSmall,
                     ),
                     Icon(Icons.keyboard_arrow_down_sharp),
                   ],
@@ -88,5 +106,10 @@ class _SettingsTapState extends State<SettingsTap> {
         builder: (context) {
           return TapLanguageBottom();
         });
+  }
+
+  void showThemeBottom() {
+    showModalBottomSheet(
+        context: context, builder: (context) => TapThemeBottom());
   }
 }
