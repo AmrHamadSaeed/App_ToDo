@@ -1,5 +1,6 @@
 import 'package:app_to_do/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -90,7 +91,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                         showCalendar();
                       },
                       child: Text(
-                        '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                        '${DateFormat('dd-MM-yyyy ').format(selectedDate)}',
+                        // '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
