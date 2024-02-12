@@ -63,7 +63,13 @@ class MyTheme {
         side: BorderSide(color: MyTheme.greyDarkColor, width: 1),
       ),
     ),
-      listTileTheme: ListTileThemeData());
+    iconTheme: IconThemeData(color: primaryColor),
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: TextStyle(
+        color: colorInput,
+      ),
+    ),
+  );
 
   /// Dark Theme
 
@@ -122,15 +128,19 @@ class MyTheme {
         backgroundColor: greyDarkColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-          ),
-          side: BorderSide(color: MyTheme.greyDarkColor, width: 1),
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
         ),
+        side: BorderSide(color: MyTheme.greyDarkColor, width: 1),
       ),
-      inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(
-          color: colorInput,
-        ),
-      ));
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: TextStyle(
+        color: colorInput,
+      ),
+    ),
+    iconTheme: IconThemeData(
+      color: primaryColor,
+    ),
+  );
 }
