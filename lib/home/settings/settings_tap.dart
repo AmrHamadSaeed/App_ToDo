@@ -22,10 +22,7 @@ class _SettingsTapState extends State<SettingsTap> {
         children: [
           Text(
             AppLocalizations.of(context)!.language,
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall!
-                .copyWith(color: Colors.green),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
@@ -46,12 +43,10 @@ class _SettingsTapState extends State<SettingsTap> {
                       provider.languageApp == 'en'
                           ? AppLocalizations.of(context)!.english
                           : AppLocalizations.of(context)!.arabic,
-                      style: provider.isDarkMode()
-                          ? Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(color: Colors.green)
-                          : Theme.of(context).textTheme.titleSmall,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: MyTheme.primaryColor),
                     ),
                     Icon(Icons.keyboard_arrow_down_sharp),
                   ],
@@ -61,7 +56,7 @@ class _SettingsTapState extends State<SettingsTap> {
           ),
           Text(
             AppLocalizations.of(context)!.mode,
-            style: Theme.of(context).textTheme.titleSmall,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
@@ -82,12 +77,10 @@ class _SettingsTapState extends State<SettingsTap> {
                       provider.isDarkMode()
                           ? AppLocalizations.of(context)!.night
                           : AppLocalizations.of(context)!.light,
-                      style: provider.isDarkMode()
-                          ? Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(color: Colors.green)
-                          : Theme.of(context).textTheme.titleSmall,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: MyTheme.primaryColor),
                     ),
                     Icon(Icons.keyboard_arrow_down_sharp),
                   ],

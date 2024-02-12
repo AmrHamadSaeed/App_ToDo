@@ -1,6 +1,9 @@
 import 'package:app_to_do/my_theme.dart';
+import 'package:app_to_do/providers/app_Config_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -17,13 +20,14 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ProviderConfig>(context);
     return Container(
       margin: EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: Column(
           children: [
             Text(
-              'Add New Task',
+              AppLocalizations.of(context)!.add_new_task,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleSmall,
             ),
@@ -35,23 +39,25 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
+                      style: TextStyle(
+                          color: provider.isDarkMode()
+                              ? MyTheme.whiteColor
+                              : MyTheme.blackColor),
                       onChanged: (text) {
                         title = text;
                       },
                       validator: (text) {
                         if (text == null || text.isEmpty) {
-                          return 'Please Enter Task title';
+                          return AppLocalizations.of(context)!.error_task_title;
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Enter task title',
-                        hintStyle:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: MyTheme.colorInput,
-                                ),
+                        hintText: AppLocalizations.of(context)!.task_title,
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: MyTheme.greyColor),
+                          borderSide: BorderSide(
+                            color: MyTheme.greyColor,
+                          ),
                         ),
                       ),
                     ),
@@ -59,17 +65,23 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
+                      style: TextStyle(
+                          color: provider.isDarkMode()
+                              ? MyTheme.whiteColor
+                              : MyTheme.blackColor),
                       onChanged: (text) {
                         description = text;
                       },
                       validator: (text) {
                         if (text == null || text.isEmpty) {
-                          return 'Please Enter Task description';
+                          return AppLocalizations.of(context)!
+                              .error_task_description;
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Enter task description',
+                        hintText:
+                            AppLocalizations.of(context)!.description_title,
                         hintStyle:
                             Theme.of(context).textTheme.titleMedium!.copyWith(
                                   color: MyTheme.colorInput,
@@ -82,7 +94,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     ),
                   ),
                   Text(
-                    'Select Date',
+                    AppLocalizations.of(context)!.select_date,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Center(
@@ -91,7 +103,9 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                         showCalendar();
                       },
                       child: Text(
-                        '${DateFormat('dd-MM-yyyy ').format(selectedDate)}',
+                        '${DateFormat(
+                          'dd-MM-yyyy ',
+                        ).format(selectedDate)}',
                         // '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
                         style: Theme.of(context)
                             .textTheme

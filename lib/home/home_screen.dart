@@ -1,6 +1,7 @@
 import 'package:app_to_do/home/settings/settings_tap.dart';
 import 'package:app_to_do/home/task_list/add_task_bottom_sheet.dart';
 import 'package:app_to_do/home/task_list/task_list_tap.dart';
+import 'package:app_to_do/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -37,22 +38,30 @@ class _HomeScreenState extends State<HomeScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.list),
-                label: 'Task List',
+                label: AppLocalizations.of(context)!.task_list,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
-                label: 'Settings',
+                label: AppLocalizations.of(context)!.settings,
               ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showAddTaskBottomShee();
-        },
-        child: Icon(
-          Icons.add,
+      floatingActionButton: Container(
+        decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+          BoxShadow(
+            color: MyTheme.greyColor,
+            blurRadius: 7,
+          )
+        ]),
+        child: FloatingActionButton(
+          onPressed: () {
+            showAddTaskBottomShee();
+          },
+          child: Icon(
+            Icons.add,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
