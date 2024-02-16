@@ -1,3 +1,5 @@
+import 'package:app_to_do/firebase_utils.dart';
+import 'package:app_to_do/model/task.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
 import 'package:flutter/material.dart';
@@ -81,11 +83,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       },
                       decoration: InputDecoration(
                         hintText:
-                            AppLocalizations.of(context)!.description_title,
+                        AppLocalizations.of(context)!.description_title,
                         hintStyle:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: MyTheme.colorInput,
-                                ),
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: MyTheme.colorInput,
+                        ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: MyTheme.greyColor),
                         ),
@@ -148,6 +150,14 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   }
 
   void addTask() {
-    if (formKey.currentState!.validate() == true) {}
+    if (formKey.currentState!.validate() == true) {
+      Task task =
+          Task(dateTime: selectedDate, description: description, title: title);
+      FirebaseUtils.addTaskToFireStore(task)
+          .timeout(Duration(milliseconds: 500), onTimeout: () {
+        print('task added successfully');
+        Navigator.pop(context);
+      });
+    }
   }
 }
