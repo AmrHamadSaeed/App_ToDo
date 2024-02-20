@@ -1,6 +1,7 @@
 import 'package:app_to_do/home/home_screen.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
+import 'package:app_to_do/providers/list_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,10 @@ void main() async {
   await FirebaseFirestore.instance.disableNetwork();
   FirebaseFirestore.instance.settings =
       Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
-  runApp(ChangeNotifierProvider(
-      create: (context) => ProviderConfig(), child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => ProviderConfig()),
+    ChangeNotifierProvider(create: (context) => ListProvider()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

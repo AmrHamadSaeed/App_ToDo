@@ -2,6 +2,7 @@ import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/model/task.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
+import 'package:app_to_do/providers/list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -19,10 +20,12 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   var formKey = GlobalKey<FormState>();
   String title = '';
   String description = '';
+  late ListProvider listProvider;
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProviderConfig>(context);
+    listProvider = Provider.of<ListProvider>(context);
     return Container(
       margin: EdgeInsets.all(10),
       child: SingleChildScrollView(
@@ -151,11 +154,16 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
 
   void addTask() {
     if (formKey.currentState!.validate() == true) {
-      Task task =
-          Task(dateTime: selectedDate, description: description, title: title);
-      FirebaseUtils.addTaskToFireStore(task)
+      /// create object from class Task to found var
+      Task task = Task(
+        dateTime: selectedDate,
+        description: description,
+        title: title,
+      );
+      FirebaseUtils.saveTaskToFireStore(task)
           .timeout(Duration(milliseconds: 500), onTimeout: () {
         print('task added successfully');
+        listProvider.getTaskFromFireStore();
         Navigator.pop(context);
       });
     }
