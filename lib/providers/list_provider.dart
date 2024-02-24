@@ -1,14 +1,15 @@
 import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/model/task.dart';
+import 'package:app_to_do/my_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
 class ListProvider extends ChangeNotifier {
   late Task task;
-
   List<Task> taskList = [];
-
   DateTime selectedDate = DateTime.now();
+  bool change = true;
+  Color color = MyTheme.greenColor;
 
   void getTaskFromFireStore() async {
     QuerySnapshot<Task> querySnapshot =
@@ -37,4 +38,35 @@ class ListProvider extends ChangeNotifier {
     selectedDate = newSelectedDate;
     getTaskFromFireStore();
   }
+
+  updateThemeClr() {
+    // task.isDone = change;
+    notifyListeners();
+  }
+
+  void changeTheme(Color colorNew) {
+    if (color == colorNew) {
+      return;
+    }
+    color = colorNew;
+    notifyListeners();
+  }
+
+  bool isDarkMode() {
+    return change == task.change;
+  }
+
+  void ischange(Color newColor) {
+    if (task.change == true) {
+      color == newColor;
+    }
+    color = newColor;
+    notifyListeners();
+  }
+// static Future<void> updateUser(Task task ,bool name) {
+//   return  FirebaseUtils.collectionTasks()
+//       .doc(task.id)
+//       .update({'title': task.title = 'hello amr', 'description':'hello', 'change':name,
+//   });
+// }
 }

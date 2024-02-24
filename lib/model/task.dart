@@ -4,23 +4,25 @@ class Task {
   String? title;
   String? description;
   DateTime? dateTime;
-  bool? isDone;
+  bool? change;
+
+  // bool? isDone;
 
   Task({
     this.id = '',
     required this.dateTime,
     required this.description,
     required this.title,
-    this.isDone = false,
+    this.change = false,
   });
 
   Task.fromFireStore(Map<String, dynamic> data)
       : this(
-          id: data['id'] as String,
+    id: data['id'] as String,
           title: data['title'] as String,
           description: data['description'] as String,
           dateTime: DateTime.fromMillisecondsSinceEpoch(data['dateTime']),
-          isDone: data['isDone'],
+          change: data['change'],
         );
 
   Map<String, dynamic> toFireStore() {
@@ -29,7 +31,7 @@ class Task {
       'title': title,
       'description': description,
       'dateTime': dateTime?.millisecondsSinceEpoch,
-      'isDone': isDone,
+      'change': change,
     };
   }
 }

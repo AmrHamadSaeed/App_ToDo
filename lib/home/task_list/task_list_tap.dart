@@ -18,6 +18,10 @@ class _TaskListTapState extends State<TaskListTap> {
     if (listProvider.taskList.isEmpty) {
       listProvider.getTaskFromFireStore();
     }
+    // for (var obj in listProvider.taskList) {
+    //   print("Name: ${obj.title}, Age: ${obj.isDone}");
+    // }
+
     ProviderConfig provider = Provider.of<ProviderConfig>(context);
     return Container(
       child: Column(
