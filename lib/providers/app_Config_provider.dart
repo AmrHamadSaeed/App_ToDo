@@ -2,7 +2,7 @@ import 'package:app_to_do/model/task.dart';
 import 'package:flutter/material.dart';
 
 class ProviderConfig extends ChangeNotifier {
-  String languageApp = 'ar';
+  String languageApp = 'en';
   ThemeMode themeApp = ThemeMode.light;
   late Task task;
 

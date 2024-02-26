@@ -1,4 +1,5 @@
 import 'package:app_to_do/firebase_utils.dart';
+import 'package:app_to_do/home/task_list/editing_task.dart';
 import 'package:app_to_do/model/task.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
@@ -20,8 +21,8 @@ class TaskListItem extends StatelessWidget {
     listProvider = Provider.of<ListProvider>(context);
     return InkWell(
       onTap: () {
-        // Navigator.of(context).pushNamed(EditingText.routeName,arguments:task );
-
+        Navigator.of(context).pushNamed(EditingText.routeName, arguments: task);
+        // listProvider.getTaskFromFireStore();
         // task = Task(dateTime: task.dateTime = DateTime.now(), description: task.description , title: task.title );
         // FirebaseUtils.udateText(task);
       },
