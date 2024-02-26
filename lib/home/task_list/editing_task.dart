@@ -88,7 +88,7 @@ class _EditingTextState extends State<EditingText> {
                                 ? MyTheme.whiteColor
                                 : MyTheme.blackColor),
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty) {
+                          if (text == null || text.isEmpty) {
                             return AppLocalizations.of(context)!
                                 .error_task_description;
                           }
