@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
+
   @override
   State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
 }
@@ -87,11 +88,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       },
                       decoration: InputDecoration(
                         hintText:
-                        AppLocalizations.of(context)!.description_title,
+                            AppLocalizations.of(context)!.description_title,
                         hintStyle:
-                        Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: MyTheme.colorInput,
-                        ),
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  color: MyTheme.colorInput,
+                                ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: MyTheme.greyColor),
                         ),
@@ -164,18 +165,29 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       );
       print('dateeeeeeee ${task.dateTime}');
 
-      FirebaseUtils.writingTaskToFireStoreAfterChecked(task)
-          .timeout(Duration(milliseconds: 500), onTimeout: () {
-        /// alert dialog -- tosk -- snakbar  // 8.00 offline
-        print('task added successfully');
-
-        Navigator.pop(context);
-        listProvider.getTaskFromFireStore();
+      FirebaseUtils.writingTaskToFireStoreAfterChecked(task).then((value) {
+        return {
+          print('task added successfully'),
+          listProvider.getTaskFromFireStore(),
+          Navigator.pop(context),
+        };
+      }).timeout(Duration(milliseconds: 500), onTimeout: () {
+        return {
+          print('task added successfully'),
+          listProvider.getTaskFromFireStore(),
+          Navigator.pop(context),
+        };
       });
     }
   }
 }
 
+// timeout(Duration(milliseconds: 500), onTimeout: () {
+// /// alert dialog -- tosk -- snakbar  // 8.00 offline
+// print('task added successfully');
+// listProvider.getTaskFromFireStore();
+// Navigator.pop(context);
+// }
 class TaskEditingData {
   String title;
 

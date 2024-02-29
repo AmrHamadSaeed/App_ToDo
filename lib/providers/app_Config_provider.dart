@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ProviderConfig extends ChangeNotifier {
   String languageApp = 'en';
+
   ThemeMode themeApp = ThemeMode.light;
   late Task task;
 
@@ -11,6 +12,7 @@ class ProviderConfig extends ChangeNotifier {
       return;
     }
     languageApp = languageNew;
+
     notifyListeners();
   }
 
@@ -26,10 +28,4 @@ class ProviderConfig extends ChangeNotifier {
     return themeApp == ThemeMode.dark;
   }
 
-  void changeColor(Color newColor) {
-    if (true) {
-      return;
-    }
-    notifyListeners();
-  }
 }

@@ -1,3 +1,4 @@
+import 'package:app_to_do/model/my_user.dart';
 import 'package:app_to_do/model/task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -6,10 +7,10 @@ class FirebaseUtils {
     return FirebaseFirestore.instance
         .collection(Task.collectionName)
         .withConverter<Task>(
-          fromFirestore: ((snapshot, options) =>
-              Task.fromFireStore(snapshot.data()!)),
-          toFirestore: (task, _) => task.toFireStore(),
-        );
+      fromFirestore: ((snapshot, options) =>
+          Task.fromFireStore(snapshot.data()!)),
+      toFirestore: (task, _) => task.toFireStore(),
+    );
   }
 
   static Future<void> writingTaskToFireStoreAfterChecked(Task task) {
@@ -39,14 +40,16 @@ class FirebaseUtils {
     });
   }
 
-  static Future<void> updateNotifications(Task task) async {
-    await FirebaseFirestore.instance
-        .collection('userNotifications')
-        .doc(task.id)
-        .update({
-      'change': task.change == true,
-      'title': task.title = 'amrrrrr',
-      'description': task.description = 'noname',
-    });
+  static CollectionReference<MyUser> getUserCollection() {
+    return FirebaseFirestore.instance
+        .collection(MyUser.collectionName)
+        .withConverter(
+            fromFirestore: ((snapshot, option) =>
+                MyUser.fromFireStore(snapshot.data())),
+            toFirestore: (user, _) => user.toFireStore());
+  }
+
+  static Future<void> addUserToFireStore(MyUser myUser) {
+    return getUserCollection().doc(myUser.id).set(myUser);
   }
 }

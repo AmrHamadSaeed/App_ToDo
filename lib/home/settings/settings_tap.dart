@@ -7,6 +7,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class SettingsTap extends StatefulWidget {
+  // savePrefs ()async{
+  //   SharedPreferences prefs =await SharedPreferences.getInstance();
+  //   prefs.setString('en', 'en');
+  //   print('success perfs');
+  // }
   @override
   State<SettingsTap> createState() => _SettingsTapState();
 }
@@ -94,6 +99,8 @@ class _SettingsTapState extends State<SettingsTap> {
   }
 
   void showLanguageBottom() {
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // sharedPreferences.setString('en','amr');
     showModalBottomSheet(
         context: context,
         builder: (context) {
