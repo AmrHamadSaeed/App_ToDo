@@ -8,6 +8,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/auth_providers.dart';
+
 class EditingText extends StatefulWidget {
   static const String routeName = 'Editing_text';
 
@@ -27,9 +29,11 @@ class _EditingTextState extends State<EditingText> {
   var id;
 
   // var datetime;
+  late AuthProviders authProviders;
 
   @override
   Widget build(BuildContext context) {
+    authProviders = Provider.of<AuthProviders>(context, listen: false);
     var provider = Provider.of<ProviderConfig>(context);
     listProvider = Provider.of<ListProvider>(context);
     var args = ModalRoute.of(context)!.settings.arguments as Task;
@@ -96,11 +100,11 @@ class _EditingTextState extends State<EditingText> {
                         },
                         decoration: InputDecoration(
                           hintText:
-                              AppLocalizations.of(context)!.description_title,
+                          AppLocalizations.of(context)!.description_title,
                           hintStyle:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: MyTheme.colorInput,
-                                  ),
+                          Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: MyTheme.colorInput,
+                          ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: MyTheme.greyColor),
                           ),
@@ -179,11 +183,11 @@ class _EditingTextState extends State<EditingText> {
           'title =${task.title} description = ${task.description} datetime = ${task.dateTime}id = ${task.id} ');
       Navigator.pop(context);
 
-      FirebaseUtils.udateText(task).timeout(Duration(milliseconds: 500),
-          onTimeout: () {
+      FirebaseUtils.udateText(task, authProviders.currentUser!.id!)
+          .timeout(Duration(milliseconds: 500), onTimeout: () {
         /// alert dialog -- tosk -- snakbar  // 8.00 offline
         print('task added successfully');
-        listProvider.getTaskFromFireStore();
+        listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);
       });
     }
   }

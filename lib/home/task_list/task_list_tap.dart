@@ -6,6 +6,8 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/auth_providers.dart';
+
 class TaskListTap extends StatefulWidget {
   @override
   State<TaskListTap> createState() => _TaskListTapState();
@@ -15,8 +17,9 @@ class _TaskListTapState extends State<TaskListTap> {
   @override
   Widget build(BuildContext context) {
     var listProvider = Provider.of<ListProvider>(context);
+    var authProviders = Provider.of<AuthProviders>(context, listen: false);
     if (listProvider.taskList.isEmpty) {
-      listProvider.getTaskFromFireStore();
+      listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);
     }
     // for (var obj in listProvider.taskList) {
     //   print("Name: ${obj.title}, Age: ${obj.isDone}");
@@ -28,7 +31,8 @@ class _TaskListTapState extends State<TaskListTap> {
         children: [
           EasyDateTimeLine(
             onDateChange: (date) {
-              listProvider.changeSelectedDate(date);
+              listProvider.changeSelectedDate(
+                  date, authProviders.currentUser!.id!);
             },
             initialDate: listProvider.selectedDate,
             activeColor: provider.isDarkMode()

@@ -1,7 +1,9 @@
+import 'package:app_to_do/dialog_yutils.dart';
 import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/model/task.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
+import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:app_to_do/providers/list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,9 +25,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   String title = '';
   String description = '';
   late ListProvider listProvider;
+  late AuthProviders authProviders;
 
   @override
   Widget build(BuildContext context) {
+    authProviders = Provider.of<AuthProviders>(context, listen: false);
     var provider = Provider.of<ProviderConfig>(context);
     listProvider = Provider.of<ListProvider>(context);
     return Container(
@@ -88,11 +92,11 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       },
                       decoration: InputDecoration(
                         hintText:
-                            AppLocalizations.of(context)!.description_title,
+                        AppLocalizations.of(context)!.description_title,
                         hintStyle:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: MyTheme.colorInput,
-                                ),
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: MyTheme.colorInput,
+                        ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: MyTheme.greyColor),
                         ),
@@ -157,26 +161,30 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   void checkTask() {
     if (formKey.currentState!.validate() == true) {
       /// create object from class Task to found var
-
+      DialogUtils.showLoading(context: context, message: 'Loding...');
       Task task = Task(
         dateTime: selectedDate,
         description: description,
         title: title,
       );
-      print('dateeeeeeee ${task.dateTime}');
 
-      FirebaseUtils.writingTaskToFireStoreAfterChecked(task).then((value) {
-        return {
-          print('task added successfully'),
-          listProvider.getTaskFromFireStore(),
-          Navigator.pop(context),
-        };
+      FirebaseUtils.writingTaskToFireStoreAfterChecked(
+              task, authProviders.currentUser!.id!)
+          .then((value) {
+        DialogUtils.hideLoading(context);
+        print('task added successfully');
+        listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);
+        Navigator.pop(context);
+        DialogUtils.showMessage(
+            context: context,
+            message: 'task added successfully',
+            posAction: () {
+              Navigator.pop(context);
+            });
       }).timeout(Duration(milliseconds: 500), onTimeout: () {
-        return {
-          print('task added successfully'),
-          listProvider.getTaskFromFireStore(),
-          Navigator.pop(context),
-        };
+        print('task added successfully');
+        listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);
+        Navigator.pop(context);
       });
     }
   }
@@ -195,6 +203,5 @@ class TaskEditingData {
 
   DateTime dateTime;
 
-  TaskEditingData(
-      {required this.title, required this.dateTime, required this.description});
+  TaskEditingData({required this.title, required this.dateTime, required this.description});
 }

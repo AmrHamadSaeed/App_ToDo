@@ -4,6 +4,7 @@ import 'package:app_to_do/home/home_screen.dart';
 import 'package:app_to_do/home/task_list/editing_task.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
+import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:app_to_do/providers/list_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => ProviderConfig()),
     ChangeNotifierProvider(create: (context) => ListProvider()),
+    ChangeNotifierProvider(create: (context) => AuthProviders()),
   ], child: MyApp()));
 }
 
