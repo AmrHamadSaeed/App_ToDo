@@ -196,12 +196,3 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
 // listProvider.getTaskFromFireStore();
 // Navigator.pop(context);
 // }
-class TaskEditingData {
-  String title;
-
-  String description;
-
-  DateTime dateTime;
-
-  TaskEditingData({required this.title, required this.dateTime, required this.description});
-}

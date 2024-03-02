@@ -34,9 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                listProvider.taskList = [];
-                authProviders.currentUser = null;
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                if (listProvider.taskList.isEmpty) {
+                  Navigator.pushReplacementNamed(
+                      context, LoginScreen.routeName);
+                } else {
+                  listProvider.taskList = [];
+                  authProviders.currentUser = null;
+                  Navigator.pushReplacementNamed(
+                      context, LoginScreen.routeName);
+                }
               },
               icon: Icon(Icons.login)),
         ],
