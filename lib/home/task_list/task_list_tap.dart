@@ -1,19 +1,36 @@
 import 'package:app_to_do/home/task_list/task_list_item.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
+import 'package:app_to_do/providers/list_provider.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TaskListTap extends StatelessWidget {
+class TaskListTap extends StatefulWidget {
+  @override
+  State<TaskListTap> createState() => _TaskListTapState();
+}
+
+class _TaskListTapState extends State<TaskListTap> {
   @override
   Widget build(BuildContext context) {
+    var listProvider = Provider.of<ListProvider>(context);
+    if (listProvider.taskList.isEmpty) {
+      listProvider.getTaskFromFireStore();
+    }
+    // for (var obj in listProvider.taskList) {
+    //   print("Name: ${obj.title}, Age: ${obj.isDone}");
+    // }
+
     ProviderConfig provider = Provider.of<ProviderConfig>(context);
     return Container(
       child: Column(
         children: [
           EasyDateTimeLine(
-            initialDate: DateTime.now(),
+            onDateChange: (date) {
+              listProvider.changeSelectedDate(date);
+            },
+            initialDate: listProvider.selectedDate,
             activeColor: provider.isDarkMode()
                 ? MyTheme.whiteColor
                 : MyTheme.greyDarkColor,
@@ -59,9 +76,11 @@ class TaskListTap extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
-                return TaskListItem();
+                return TaskListItem(
+                  task: listProvider.taskList[index],
+                );
               },
-              itemCount: 20,
+              itemCount: listProvider.taskList.length,
             ),
           ),
         ],

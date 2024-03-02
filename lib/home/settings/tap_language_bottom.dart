@@ -10,7 +10,6 @@ class TapLanguageBottom extends StatefulWidget {
 }
 
 class _TapLanguageBottomState extends State<TapLanguageBottom> {
-  @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProviderConfig>(context);
     return Column(
@@ -65,4 +64,19 @@ class _TapLanguageBottomState extends State<TapLanguageBottom> {
           ),
     );
   }
+// void getData() async{
+//   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+//   setState(() {
+//    sharedPreferences.getString('en')!;
+//   });
+//
+// }
+// void _saveData() async{
+//   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+//   sharedPreferences.setString('en', 'en');
+//   print(sharedPreferences.getString('en'));
+//   setState(() {
+//
+//   });
+// }
 }

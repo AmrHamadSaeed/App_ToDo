@@ -1,14 +1,18 @@
+import 'package:app_to_do/model/task.dart';
 import 'package:flutter/material.dart';
 
 class ProviderConfig extends ChangeNotifier {
-  String languageApp = 'ar';
+  String languageApp = 'en';
+
   ThemeMode themeApp = ThemeMode.light;
+  late Task task;
 
   void changeLanguage(String languageNew) {
     if (languageApp == languageNew) {
       return;
     }
     languageApp = languageNew;
+
     notifyListeners();
   }
 
@@ -23,4 +27,5 @@ class ProviderConfig extends ChangeNotifier {
   bool isDarkMode() {
     return themeApp == ThemeMode.dark;
   }
+
 }
