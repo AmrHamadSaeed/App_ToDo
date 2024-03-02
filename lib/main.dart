@@ -12,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseFirestore.instance.disableNetwork();
+  // FirebaseFirestore.instance.clearPersistence();
   FirebaseFirestore.instance.settings =
       Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
   runApp(MultiProvider(providers: [
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
+        // EditingText.routeName: (context) => EditingText()
       },
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,

@@ -10,14 +10,15 @@ import 'package:provider/provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
-
   @override
   State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
 }
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   var selectedDate = DateTime.now();
+
   var formKey = GlobalKey<FormState>();
+
   String title = '';
   String description = '';
   late ListProvider listProvider;
@@ -105,12 +106,12 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   Center(
                     child: InkWell(
                       onTap: () {
-                        showCalendar();
+                        showCalendarPicker();
                       },
                       child: Text(
-                        '${DateFormat(
+                        DateFormat(
                           'dd-MM-yyyy ',
-                        ).format(selectedDate)}',
+                        ).format(selectedDate),
                         // '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
                         style: Theme.of(context)
                             .textTheme
@@ -126,7 +127,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   Center(
                     child: FloatingActionButton(
                       onPressed: () {
-                        addTask();
+                        checkTask();
                       },
                       child: Icon(Icons.check),
                     ),
@@ -140,7 +141,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     );
   }
 
-  void showCalendar() async {
+  void showCalendarPicker() async {
     var chosenDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -152,20 +153,35 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     }
   }
 
-  void addTask() {
+  void checkTask() {
     if (formKey.currentState!.validate() == true) {
       /// create object from class Task to found var
+
       Task task = Task(
         dateTime: selectedDate,
         description: description,
         title: title,
       );
-      FirebaseUtils.saveTaskToFireStore(task)
+
+      FirebaseUtils.writingTaskToFireStoreAfterChecked(task)
           .timeout(Duration(milliseconds: 500), onTimeout: () {
+        /// alert dialog -- tosk -- snakbar  // 8.00 offline
         print('task added successfully');
-        listProvider.getTaskFromFireStore();
+
         Navigator.pop(context);
+        listProvider.getTaskFromFireStore();
       });
     }
   }
+}
+
+class TaskEditingData {
+  String title;
+
+  String description;
+
+  DateTime dateTime;
+
+  TaskEditingData(
+      {required this.title, required this.dateTime, required this.description});
 }
