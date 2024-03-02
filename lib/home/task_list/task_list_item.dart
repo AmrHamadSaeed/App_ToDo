@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/auth_providers.dart';
+
 class TaskListItem extends StatelessWidget {
   Task task;
 
@@ -19,6 +21,7 @@ class TaskListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<ProviderConfig>(context);
     listProvider = Provider.of<ListProvider>(context);
+    var authProviders = Provider.of<AuthProviders>(context, listen: false);
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(EditingText.routeName, arguments: task);
@@ -41,10 +44,16 @@ class TaskListItem extends StatelessWidget {
               SlidableAction(
                 borderRadius: BorderRadius.circular(25),
                 onPressed: (context) {
-                  FirebaseUtils.deleteTaskFromFireStore(task)
-                      .timeout(Duration(milliseconds: 500), onTimeout: () {
+                  FirebaseUtils.deleteTaskFromFireStore(
+                          task, authProviders.currentUser!.id!)
+                      .then((value) {
                     print('task deleted successfully');
-                    listProvider.getTaskFromFireStore();
+                    listProvider
+                        .getTaskFromFireStore(authProviders.currentUser!.id!);
+                  }).timeout(Duration(milliseconds: 500), onTimeout: () {
+                    print('task deleted successfully');
+                    listProvider
+                        .getTaskFromFireStore(authProviders.currentUser!.id!);
                   });
                 },
                 backgroundColor: MyTheme.redColor,
@@ -110,8 +119,10 @@ class TaskListItem extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             if (task.change == false) {
-                              FirebaseUtils.updateUser(task);
-                              listProvider.getTaskFromFireStore();
+                              FirebaseUtils.updateUser(
+                                  task, authProviders.currentUser!.id!);
+                              listProvider.getTaskFromFireStore(
+                                  authProviders.currentUser!.id!);
                             }
 
                             // setState(() {

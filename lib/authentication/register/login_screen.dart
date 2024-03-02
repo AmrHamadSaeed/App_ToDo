@@ -1,10 +1,13 @@
 import 'package:app_to_do/authentication/custom_text_form_field.dart';
 import 'package:app_to_do/authentication/register/register_screen.dart';
 import 'package:app_to_do/dialog_yutils.dart';
+import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/home/home_screen.dart';
 import 'package:app_to_do/my_theme.dart';
+import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
@@ -107,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black),
@@ -122,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(
+                            Navigator.pushReplacementNamed(
                                 context, RegisterScreen.routeName);
                           },
                           child: Text('Or Create Account',
@@ -150,6 +153,13 @@ class _LoginScreenState extends State<LoginScreen> {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: emailController.text, password: passwordController.text);
+        var user = await FirebaseUtils.readUserFromFireStore(
+            credential.user?.uid ?? '');
+        if (user == null) {
+          return;
+        }
+        var authProviders = Provider.of<AuthProviders>(context, listen: false);
+        authProviders.updateUser(user);
 
         /// todo : hide loading
         DialogUtils.hideLoading(context);
@@ -161,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
             message: 'Login Successfully.',
             posActionName: 'ok',
             posAction: () {
-              Navigator.of(context).pushNamed(HomeScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             });
         print('Login Successfully');
         print(credential.user?.uid ?? '');

@@ -1,9 +1,13 @@
 import 'package:app_to_do/authentication/custom_text_form_field.dart';
 import 'package:app_to_do/dialog_yutils.dart';
+import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/home/home_screen.dart';
+import 'package:app_to_do/model/my_user.dart';
 import 'package:app_to_do/my_theme.dart';
+import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'register_screen';
@@ -174,6 +178,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           password: passwordController.text,
         );
         print('hello amr welcome');
+        MyUser myUser = MyUser(
+            id: credential.user?.uid ?? '',
+            name: nameController.text,
+            email: emailController.text);
+        await FirebaseUtils.addUserToFireStore(myUser);
+        var authProviders = Provider.of<AuthProviders>(context, listen: false);
+        authProviders.updateUser(myUser);
 
         /// todo : hide loading
         DialogUtils.hideLoading(context);
@@ -185,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             message: 'Register Successfully.',
             posActionName: 'ok',
             posAction: () {
-              Navigator.of(context).pushNamed(HomeScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             });
         print('register successfully');
         print(credential.user?.uid ?? '');
