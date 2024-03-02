@@ -162,6 +162,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         description: description,
         title: title,
       );
+      print('dateeeeeeee ${task.dateTime}');
 
       FirebaseUtils.writingTaskToFireStoreAfterChecked(task)
           .timeout(Duration(milliseconds: 500), onTimeout: () {

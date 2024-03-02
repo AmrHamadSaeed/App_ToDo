@@ -1,4 +1,7 @@
+import 'package:app_to_do/authentication/register/login_screen.dart';
+import 'package:app_to_do/authentication/register/register_screen.dart';
 import 'package:app_to_do/home/home_screen.dart';
+import 'package:app_to_do/home/task_list/editing_task.dart';
 import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/app_Config_provider.dart';
 import 'package:app_to_do/providers/list_provider.dart';
@@ -30,7 +33,9 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
-        // EditingText.routeName: (context) => EditingText()
+        RegisterScreen.routeName: (context) => RegisterScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        EditingText.routeName: (context) => EditingText()
       },
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,

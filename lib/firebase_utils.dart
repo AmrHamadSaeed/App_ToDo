@@ -35,7 +35,7 @@ class FirebaseUtils {
     return FirebaseUtils.collectionTasks().doc(task.id).update({
       'title': task.title,
       'description': task.description,
-      'dateTime': task.dateTime,
+      'dateTime': task.dateTime?.millisecondsSinceEpoch,
     });
   }
 
