@@ -11,9 +11,9 @@ class ListProvider extends ChangeNotifier {
   bool change = true;
   Color color = MyTheme.greenColor;
 
-  void getTaskFromFireStore() async {
+  void getTaskFromFireStore(String uId) async {
     QuerySnapshot<Task> querySnapshot =
-        await FirebaseUtils.collectionTasks().get();
+        await FirebaseUtils.collectionTasks(uId).get();
     //List<QueryDocumentSnapshot<Task>>  => List<Task>
     taskList = querySnapshot.docs.map((doc) {
       return doc.data();
@@ -34,9 +34,9 @@ class ListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeSelectedDate(DateTime newSelectedDate) {
+  void changeSelectedDate(DateTime newSelectedDate, String uId) {
     selectedDate = newSelectedDate;
-    getTaskFromFireStore();
+    getTaskFromFireStore(uId);
   }
 
   updateThemeClr() {
