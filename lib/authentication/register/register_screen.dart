@@ -1,4 +1,5 @@
 import 'package:app_to_do/authentication/custom_text_form_field.dart';
+import 'package:app_to_do/authentication/register/login_screen.dart';
 import 'package:app_to_do/dialog_yutils.dart';
 import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/home/home_screen.dart';
@@ -48,6 +49,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            leading: BackButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
+            ),
             backgroundColor: Colors.transparent,
             title: Text('Create Account'),
             centerTitle: true,

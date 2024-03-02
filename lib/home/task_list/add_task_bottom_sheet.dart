@@ -175,12 +175,12 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         print('task added successfully');
         listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);
         Navigator.pop(context);
-        DialogUtils.showMessage(
-            context: context,
-            message: 'task added successfully',
-            posAction: () {
-              Navigator.pop(context);
-            });
+        // DialogUtils.showMessage(
+        //     context: context,
+        //     message: 'task added successfully',
+        //     posAction: () {
+        //       Navigator.pop(context);
+        //     });
       }).timeout(Duration(milliseconds: 500), onTimeout: () {
         print('task added successfully');
         listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);

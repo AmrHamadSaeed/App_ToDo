@@ -28,8 +28,6 @@ class FirebaseUtils {
 
   static Future<void> updateUser(Task task, String uId) {
     return FirebaseUtils.collectionTasks(uId).doc(task.id).update({
-      'title': task.title = 'hello amr',
-      'description': 'hello',
       'change': task.change = true,
     });
   }
