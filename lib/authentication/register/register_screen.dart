@@ -1,5 +1,5 @@
 import 'package:app_to_do/authentication/custom_text_form_field.dart';
-import 'package:app_to_do/authentication/register/login_screen.dart';
+import 'package:app_to_do/authentication/login/login_screen.dart';
 import 'package:app_to_do/dialog_yutils.dart';
 import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/home/home_screen.dart';
@@ -96,14 +96,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       CustomTextFormField(
-                        suffixIcon: IconButton(
-                            onPressed: () {
+                        suffixIcon: InkWell(
+                            onTap: () {
                               obscureText == true
                                   ? obscureText = false
                                   : obscureText = true;
                               setState(() {});
                             },
-                            icon: Icon(Icons.remove_red_eye_outlined)),
+                            child: Icon(
+                              Icons.remove_red_eye,
+                            )),
                         obscureText: obscureText,
                         lableText: 'Password',
                         keyboardType: TextInputType.phone,
@@ -132,19 +134,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                           return null;
                         },
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              // if(obscureText == true){
-                              //   obscureText = false;
-                              // }else{
-                              //   obscureText = true;
-                              // }
+                        suffixIcon: InkWell(
+                            onTap: () {
                               obscureText1 == true
                                   ? obscureText1 = false
                                   : obscureText1 = true;
                               setState(() {});
                             },
-                            icon: Icon(Icons.remove_red_eye_outlined)),
+                            child: Icon(
+                              Icons.remove_red_eye,
+                            )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),

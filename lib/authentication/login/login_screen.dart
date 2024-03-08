@@ -82,19 +82,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       CustomTextFormField(
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              // if(obscureText == true){
-                              //   obscureText = false;
-                              // }else{
-                              //   obscureText = true;
-                              // }
+                        suffixIcon: InkWell(
+                            onTap: () {
                               obscureText == true
                                   ? obscureText = false
                                   : obscureText = true;
                               setState(() {});
                             },
-                            icon: Icon(Icons.remove_red_eye_outlined)),
+                            child: Icon(
+                              Icons.remove_red_eye,
+                            )),
                         obscureText: obscureText,
                         lableText: 'Password',
                         keyboardType: TextInputType.phone,

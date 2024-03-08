@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../authentication/register/login_screen.dart';
+import '../authentication/login/login_screen.dart';
 import '../providers/auth_providers.dart';
 
 class HomeScreen extends StatefulWidget {
