@@ -15,7 +15,30 @@
 "mode" : "Mode",
 "light" : "Light",
 "night" : "Night",
-"add_new_task" : "Add New Task"
+"add_new_task" : "Add New Task",
+"welcome_back" : "Welcome Back",
+"email_address" : "Email Address",
+"password" : "Password",
+"login" : "Login",
+"or_create_account" : "Or Create Account",
+"create_account" : "Create Account",
+"please_enter_email" : "Please Enter Email",
+"please_enter_valid_email" : "Please Enter Valid Email",
+"please_enter_password" : "Please Enter Password",
+"password_should" : "Password Should be at least  6 chars.",
+"loading" : "Loading...",
+"login_successfully" : "Login Successfully.",
+"ok" : "ok",
+"credential" : "The supplied auth credential is incorrect, malformed or has expired.",
+"error" : "Error",
+"user_name" : "User Name",
+"register_successfully" : "Register Successfully.",
+"too_weak" : "The password provided is too weak.",
+"please_enter_user_name" : "Please Enter User Name",
+"confirm_password" : "Confirm Password",
+"please_enter_confirmPassword" : "Please Enter ConfirmPassword",
+"invalid_confirmPassword" : "Invalid ConfirmPassword",
+"already_exists" : "The account already exists for that email. "
 
 
 

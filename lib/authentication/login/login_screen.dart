@@ -7,6 +7,7 @@ import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,11 +18,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController =
-      TextEditingController(text: 'amr@yahoo.com');
+  TextEditingController emailController = TextEditingController();
 
-  TextEditingController passwordController =
-      TextEditingController(text: '123456');
+  TextEditingController passwordController = TextEditingController();
   bool obscureText = true;
 
   var formkey = GlobalKey<FormState>();
@@ -43,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            title: Text('Login'),
+            title: Text(AppLocalizations.of(context)!.login),
             centerTitle: true,
           ),
           body: SingleChildScrollView(
@@ -54,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: MediaQuery.of(context).size.height * 0.23,
                 ),
                 Text(
-                  'WelcomeBack',
+                  AppLocalizations.of(context)!.welcome_back,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 SizedBox(
@@ -65,18 +64,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       CustomTextFormField(
-                        lableText: 'Email',
+                        lableText: AppLocalizations.of(context)!.email_address,
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         validator: (email) {
                           if (email!.trim().isEmpty) {
-                            return 'Please Enter Email';
+                            return AppLocalizations.of(context)!
+                                .please_enter_email;
                           }
                           bool emailValid = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(email);
                           if (!emailValid) {
-                            return 'Please enter valid email';
+                            return AppLocalizations.of(context)!
+                                .please_enter_valid_email;
                           }
                           return null;
                         },
@@ -93,15 +94,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               Icons.remove_red_eye,
                             )),
                         obscureText: obscureText,
-                        lableText: 'Password',
+                        lableText: AppLocalizations.of(context)!.password,
                         keyboardType: TextInputType.phone,
                         controller: passwordController,
                         validator: (password) {
                           if (password == null || password.trim().isEmpty) {
-                            return 'Please Enter Password';
+                            return AppLocalizations.of(context)!
+                                .please_enter_password;
                           }
                           if (password.length < 6) {
-                            return 'Password Should be at least  6 chars. ';
+                            return AppLocalizations.of(context)!
+                                .password_should;
                           }
                           return null;
                         },
@@ -114,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () {
                             login();
                           },
-                          child: Text('Login',
+                          child: Text(AppLocalizations.of(context)!.login,
                               style: Theme.of(context).textTheme.titleLarge),
                         ),
                       ),
@@ -125,7 +128,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacementNamed(
                                 context, RegisterScreen.routeName);
                           },
-                          child: Text('Or Create Account',
+                          child: Text(
+                              AppLocalizations.of(context)!.or_create_account,
                               style: Theme.of(context).textTheme.titleMedium),
                         ),
                       ),
@@ -144,7 +148,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (formkey.currentState!.validate() == true) {
       // todo: show loading
       DialogUtils.showLoading(
-          context: context, message: 'Loading...', isBarrierDismissible: false);
+          context: context,
+          message: AppLocalizations.of(context)!.loading,
+          isBarrierDismissible: false);
       // await Future.delayed(Duration(seconds: 2));
       try {
         final credential = await FirebaseAuth.instance
@@ -165,8 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
         DialogUtils.showMessage(
             context: context,
-            message: 'Login Successfully.',
-            posActionName: 'ok',
+            message: AppLocalizations.of(context)!.login_successfully,
+            posActionName: AppLocalizations.of(context)!.ok,
             posAction: () {
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             });
@@ -178,13 +184,11 @@ class _LoginScreenState extends State<LoginScreen> {
           DialogUtils.hideLoading(context);
 
           /// todo : show Message
-
           DialogUtils.showMessage(
             context: context,
-            message:
-                'The supplied auth credential is incorrect, malformed or has expired.',
-            title: 'Error',
-            posActionName: 'ok',
+            message: AppLocalizations.of(context)!.credential,
+            title: AppLocalizations.of(context)!.error,
+            posActionName: AppLocalizations.of(context)!.ok,
           );
           print(
               'The supplied auth credential is incorrect, malformed or has expired.');
@@ -198,8 +202,8 @@ class _LoginScreenState extends State<LoginScreen> {
         DialogUtils.showMessage(
           context: context,
           message: '${e.toString()}',
-          title: 'Error',
-          posActionName: 'ok',
+          title: AppLocalizations.of(context)!.error,
+          posActionName: AppLocalizations.of(context)!.ok,
         );
         print(e.toString());
       }

@@ -8,7 +8,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../dialog_yutils.dart';
 import '../../providers/auth_providers.dart';
 
 class EditingText extends StatefulWidget {
@@ -189,20 +188,22 @@ class _EditingTextState extends State<EditingText> {
         title: titleCon.text,
         id: id,
       );
-      print(
-          'title =${task.title} description = ${task.description} datetime = ${task.dateTime}id = ${task.id} ');
-      Navigator.pop(context);
 
       FirebaseUtils.udateText(task, authProviders.currentUser!.id!)
           .then((value) {
         print('task added successfully');
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.green,
+          content: Text("👌 Tasks Editing successfully 👌"),
+        ));
         listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);
-        DialogUtils.showMessage(
-          context: context,
-          message: 'task added successfully',
-        );
+        Navigator.pop(context);
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //
+        //   content: Text("Task Added successfully"),
+        // ));
       }).timeout(Duration(milliseconds: 500), onTimeout: () {
-        /// alert dialog -- tosk -- snakbar  // 8.00 offline
+        /// alert dialog -- to -- snakbar  // 8.00 offline
         print('task added successfully');
         listProvider.getTaskFromFireStore(authProviders.currentUser!.id!);
       });

@@ -15,7 +15,31 @@
 "mode" : "الوضع",
 "light" : "اضاءة",
 "night" : "ليلي",
-"add_new_task" : "اضف مهام جديدة"
+"add_new_task" : "اضف مهام جديدة",
+"welcome_back" : "مرحبًا بعودتك",
+"email_address" : "عنوان البريد الإلكتروني",
+"password" : "كلمة المرور",
+"login" : "تسجيل الدخول",
+"or_create_account" : "أو إنشاء حساب",
+"create_account" : " إنشاء حساب",
+"please_enter_email" : "الرجاء إدخال البريد الإلكتروني",
+"please_enter_valid_email" : "الرجاء إدخال بريد إلكتروني صحيح",
+"please_enter_password" : "الرجاء إدخال كلمة المرور",
+"password_should" : "كلمة المرور يجب أن تتكون من 6 أحرف على الأقل.",
+"loading" : "جاري التحميل ...",
+"login_successfully" : "تم تسجيل الدخول بنجاح.",
+"ok" : "حسنا",
+"credential" : "بيانات اعتماد المصادقة المقدمة غير صحيحة أو مشوهة أو منتهية الصلاحية.",
+"error" : "خطأ",
+"user_name" : "اسم المستخدم",
+"register_successfully" : "تسجيل بنجاح.",
+"too_weak" : "كلمة المرور المقدمة ضعيفة جدًا.",
+"please_enter_user_name" : "الرجاء إدخال اسم المستخدم",
+"confirm_password" : "تأكيد كلمة المرور",
+"please_enter_confirmPassword" : "الرجاء إدخال تأكيد كلمة المرور",
+"invalid_confirmPassword" : "كلمة المرور المؤكدة غير صالحة",
+"already_exists" : "الحساب موجود بالفعل لهذا البريد الإلكتروني. "
+
 
 
 
