@@ -1,4 +1,5 @@
 import 'package:app_to_do/authentication/custom_text_form_field.dart';
+import 'package:app_to_do/authentication/login/login_screen.dart';
 import 'package:app_to_do/dialog_yutils.dart';
 import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/home/home_screen.dart';
@@ -7,6 +8,7 @@ import 'package:app_to_do/my_theme.dart';
 import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -37,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Stack(
       children: [
         Container(
-          color: MyTheme.whiteColor,
+          color: MyTheme.backgroundLight,
           child: Image.asset(
             'assets/images/main_background.png',
             width: double.infinity,
@@ -48,8 +50,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            leading: BackButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
+            ),
             backgroundColor: Colors.transparent,
-            title: Text('Create Account'),
+            title: Text(AppLocalizations.of(context)!.create_account),
             centerTitle: true,
           ),
           body: SingleChildScrollView(
@@ -63,82 +70,89 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       CustomTextFormField(
-                        lableText: 'User Name',
+                        lableText: AppLocalizations.of(context)!.user_name,
                         controller: nameController,
                         validator: (name) {
                           if (name == null || name.trim().isEmpty) {
-                            return 'Please Enter User Name';
+                            return AppLocalizations.of(context)!
+                                .please_enter_user_name;
                           }
                           return null;
                         },
                       ),
                       CustomTextFormField(
-                        lableText: 'Email',
+                        lableText: AppLocalizations.of(context)!.email_address,
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         validator: (email) {
                           if (email!.trim().isEmpty) {
-                            return 'Please Enter Email';
+                            return AppLocalizations.of(context)!
+                                .please_enter_email;
                           }
                           bool emailValid = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(email);
                           if (!emailValid) {
-                            return 'Please enter valid email';
+                            return AppLocalizations.of(context)!
+                                .please_enter_valid_email;
                           }
                           return null;
                         },
                       ),
                       CustomTextFormField(
-                        suffixIcon: IconButton(
-                            onPressed: () {
+                        suffixIcon: InkWell(
+                            onTap: () {
                               obscureText == true
                                   ? obscureText = false
                                   : obscureText = true;
                               setState(() {});
                             },
-                            icon: Icon(Icons.remove_red_eye_outlined)),
+                            child: Icon(
+                              Icons.remove_red_eye,
+                            )),
                         obscureText: obscureText,
-                        lableText: 'Password',
+                        lableText: AppLocalizations.of(context)!.password,
                         keyboardType: TextInputType.phone,
                         controller: passwordController,
                         validator: (password) {
                           if (password == null || password.trim().isEmpty) {
-                            return 'Please Enter Password';
+                            return AppLocalizations.of(context)!
+                                .please_enter_password;
                           }
                           if (password.length < 6) {
-                            return 'Password Should be at least  6 chars. ';
+                            return AppLocalizations.of(context)!
+                                .password_should;
                           }
                           return null;
                         },
                       ),
                       CustomTextFormField(
                         obscureText: obscureText1,
-                        lableText: 'Confirm Password',
+                        lableText:
+                            AppLocalizations.of(context)!.confirm_password,
                         keyboardType: TextInputType.phone,
                         controller: confirmPasswordController,
                         validator: (confirm) {
                           if (confirm == null || confirm.trim().isEmpty) {
-                            return 'Please Enter ConfirmPassword';
+                            return AppLocalizations.of(context)!
+                                .please_enter_confirmPassword;
                           }
                           if (confirm != passwordController.text) {
-                            return 'Invalid ConfirmPassword';
+                            return AppLocalizations.of(context)!
+                                .invalid_confirmPassword;
                           }
                           return null;
                         },
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              // if(obscureText == true){
-                              //   obscureText = false;
-                              // }else{
-                              //   obscureText = true;
-                              // }
+                        suffixIcon: InkWell(
+                            onTap: () {
                               obscureText1 == true
                                   ? obscureText1 = false
                                   : obscureText1 = true;
                               setState(() {});
                             },
-                            icon: Icon(Icons.remove_red_eye_outlined)),
+                            child: Icon(
+                              Icons.remove_red_eye,
+                            )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -148,7 +162,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: () {
                             register();
                           },
-                          child: Text('Create Account',
+                          child: Text(
+                              AppLocalizations.of(context)!.create_account,
                               style: Theme.of(context).textTheme.titleLarge),
                         ),
                       )
@@ -168,7 +183,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       /// register
       /// todo: show loading
       DialogUtils.showLoading(
-          context: context, message: 'Loading...', isBarrierDismissible: false);
+          context: context,
+          message: AppLocalizations.of(context)!.loading,
+          isBarrierDismissible: false);
       // await Future.delayed(Duration(seconds: 2));
       print('hello amr welcome');
       try {
@@ -193,8 +210,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         DialogUtils.showMessage(
             context: context,
-            message: 'Register Successfully.',
-            posActionName: 'ok',
+            message: AppLocalizations.of(context)!.register_successfully,
+            posActionName: AppLocalizations.of(context)!.ok,
             posAction: () {
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             });
@@ -209,9 +226,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           DialogUtils.showMessage(
             context: context,
-            message: 'The password provided is too weak.',
-            title: 'Error',
-            posActionName: 'ok',
+            message: AppLocalizations.of(context)!.too_weak,
+            title: AppLocalizations.of(context)!.error,
+            posActionName: AppLocalizations.of(context)!.error,
           );
           print('The password provided is too weak.');
         } else if (e.code == 'email-already-in-use') {
@@ -222,9 +239,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           DialogUtils.showMessage(
             context: context,
-            message: 'The account already exists for that email.',
-            title: 'Error',
-            posActionName: 'ok',
+            message: AppLocalizations.of(context)!.already_exists,
+            title: AppLocalizations.of(context)!.error,
+            posActionName: AppLocalizations.of(context)!.ok,
           );
           print('The account already exists for that email.');
         }
@@ -237,8 +254,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         DialogUtils.showMessage(
           context: context,
           message: '${e.toString()}',
-          title: 'Error',
-          posActionName: 'ok',
+          title: AppLocalizations.of(context)!.error,
+          posActionName: AppLocalizations.of(context)!.ok,
         );
         print(e);
       }

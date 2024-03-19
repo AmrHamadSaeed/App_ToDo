@@ -102,11 +102,11 @@ class TaskListItem extends StatelessWidget {
                 )),
                 task.change == true
                     ? Text(
-                        'hello',
+                        'Done!',
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
-                            .copyWith(color: Colors.green),
+                            .copyWith(color: MyTheme.greenColor),
                       )
                     : Container(
                         padding: EdgeInsets.symmetric(

@@ -1,4 +1,4 @@
-import 'package:app_to_do/authentication/register/login_screen.dart';
+import 'package:app_to_do/authentication/login/login_screen.dart';
 import 'package:app_to_do/authentication/register/register_screen.dart';
 import 'package:app_to_do/home/home_screen.dart';
 import 'package:app_to_do/home/task_list/editing_task.dart';
@@ -14,13 +14,16 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // await FirebaseFirestore.instance.disableNetwork();
+  // await FirebaseFirestore.instance.enableNetwork();
   // FirebaseFirestore.instance.clearPersistence();
   // FirebaseFirestore.instance.settings =
   //     Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
 
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => ProviderConfig()),
+    ChangeNotifierProvider(
+        create: (context) => ProviderConfig()
+          ..getLanguageSP()
+          ..getThemeSp()),
     ChangeNotifierProvider(create: (context) => ListProvider()),
     ChangeNotifierProvider(create: (context) => AuthProviders()),
   ], child: MyApp()));
