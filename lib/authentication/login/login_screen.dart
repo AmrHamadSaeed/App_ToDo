@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Stack(
       children: [
         Container(
-          color: MyTheme.whiteColor,
+          color: MyTheme.backgroundLight,
           child: Image.asset(
             'assets/images/main_background.png',
             width: double.infinity,

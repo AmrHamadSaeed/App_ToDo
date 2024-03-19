@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // await FirebaseFirestore.instance.disableNetwork();
+  // await FirebaseFirestore.instance.enableNetwork();
   // FirebaseFirestore.instance.clearPersistence();
   // FirebaseFirestore.instance.settings =
   //     Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
