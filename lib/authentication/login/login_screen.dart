@@ -4,6 +4,7 @@ import 'package:app_to_do/dialog_yutils.dart';
 import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/home/home_screen.dart';
 import 'package:app_to_do/my_theme.dart';
+import 'package:app_to_do/providers/app_Config_provider.dart';
 import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ProviderConfig provider = Provider.of<ProviderConfig>(context);
     return Stack(
       children: [
         Container(
-          color: MyTheme.backgroundLight,
+          color: provider.isDarkMode()
+              ? MyTheme.backgroundDark
+              : MyTheme.backgroundLight,
           child: Image.asset(
             'assets/images/main_background.png',
             width: double.infinity,
@@ -73,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .please_enter_email;
                           }
                           bool emailValid = RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(email);
                           if (!emailValid) {
                             return AppLocalizations.of(context)!
@@ -112,8 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
                           onPressed: () {
                             login();
                           },
