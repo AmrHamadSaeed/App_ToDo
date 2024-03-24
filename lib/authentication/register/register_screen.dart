@@ -5,6 +5,7 @@ import 'package:app_to_do/firebase_utils.dart';
 import 'package:app_to_do/home/home_screen.dart';
 import 'package:app_to_do/model/my_user.dart';
 import 'package:app_to_do/my_theme.dart';
+import 'package:app_to_do/providers/app_Config_provider.dart';
 import 'package:app_to_do/providers/auth_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +37,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ProviderConfig provider = Provider.of<ProviderConfig>(context);
     return Stack(
       children: [
         Container(
-          color: MyTheme.backgroundLight,
+          color: provider.isDarkMode()
+              ? MyTheme.backgroundDark
+              : MyTheme.backgroundLight,
           child: Image.asset(
             'assets/images/main_background.png',
             width: double.infinity,
@@ -90,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 .please_enter_email;
                           }
                           bool emailValid = RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(email);
                           if (!emailValid) {
                             return AppLocalizations.of(context)!
@@ -129,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       CustomTextFormField(
                         obscureText: obscureText1,
                         lableText:
-                            AppLocalizations.of(context)!.confirm_password,
+                        AppLocalizations.of(context)!.confirm_password,
                         keyboardType: TextInputType.phone,
                         controller: confirmPasswordController,
                         validator: (confirm) {
@@ -157,8 +161,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
                           onPressed: () {
                             register();
                           },
