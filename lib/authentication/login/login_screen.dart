@@ -184,7 +184,6 @@ class _LoginScreenState extends State<LoginScreen> {
         if (e.code == 'invalid-credential') {
           /// todo : hide loading
           DialogUtils.hideLoading(context);
-
           /// todo : show Message
           DialogUtils.showMessage(
             context: context,
